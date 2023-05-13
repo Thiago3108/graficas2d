@@ -3,7 +3,7 @@
 #---------------------------------
 
 # se importa la libreria tkinter con todas sus funciones
-from tkinter import *
+from tkinter import *   
 from tkinter import messagebox, ttk
 
 #constates globales
