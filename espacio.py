@@ -1,11 +1,9 @@
 #---------------------------------
 # Desktop app -Estudiante 
 #---------------------------------
-
 # se importa la libreria tkinter con todas sus funciones
-from tkinter import *   
+from tkinter import * 
 import random
-import tkinter as tk
 
 #variables globales
 BASE=660
@@ -28,7 +26,7 @@ def mover_objeto(x, y):
 
 def reiniciar_circulos():
     c.delete("circulo") 
-    for i in range(200):
+    for i in range(50):
         x_estrella = random.randint(0, BASE - 20)
         y_estrella = random.randint(0, ALTURA - 20)
         color = "#"
