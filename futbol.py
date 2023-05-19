@@ -7,22 +7,34 @@ from tkinter import *
 import random
 
 #definicion de variable
-def mover_objeto():
-    x, y = c.coords(objeto)
-    x2 = random.randint(-10, 10)
-    y2 = random.randint(-10, 10)
-
-    if x + x2 < 30 or x + x2 > BASE-30:
-        x2 = -x2 
-    if y + y2 < 30 or y + y2 > ALTURA-30:
-        y2 = -y2 
-    c.move(objeto, x2, y2)
-    c.after(50, mover_objeto)
+def mover_bola():
+    global x, y, velocidad_x, velocidad_y
+    
+    # Actualizar la posición de la bola
+    x += velocidad_x
+    y += velocidad_y
+    
+    # Verificar los límites del lienzo y controlar el rebote
+    if x <= radio or x >= BASE - radio:
+        velocidad_x = -velocidad_x
+    if y <= radio or y >= ALTURA - radio:
+        velocidad_y = -velocidad_y
+    
+    # Mover la bola en el lienzo
+    c.move(bola, velocidad_x, velocidad_y)
+    
+    # Llamar a la función de forma recursiva después de un intervalo de tiempo
+    c.after(30, mover_bola)
 
 #variables globales
 BASE=660
 ALTURA=460
-
+#Variables de la pelota
+radio = 30
+x = random.randint(30,BASE-30)#BASE / 2
+y = random.randint(30,ALTURA-30)#ALTURA / 2
+velocidad_x = 5
+velocidad_y = 3
 #-----------------------------
 # ventana principal de la app
 #-----------------------------
@@ -57,9 +69,12 @@ elipse = c.create_oval((BASE/2)-50, (ALTURA/2)-50, (BASE/2)+50, (ALTURA/2)+50,  
 elipse1 = c.create_oval(-BASE/2, ALTURA/7, BASE/4, ALTURA-ALTURA/7,  outline="white", width=5)
 elipse2 = c.create_oval(BASE-BASE/4, ALTURA-ALTURA/12, BASE*2, ALTURA/12,  outline="white", width=5)
 
-#objeto o balon 
-image = PhotoImage(file="balon.png")
-objeto = c.create_image(random.randint(30,BASE-30),random.randint(30,ALTURA-30), image=image)
+# Cargar la imagen de la bola
+imagen_bola = PhotoImage(file="balon.png")
+
+# Crear la bola en el lienzo utilizando la imagen
+
+bola = c.create_image(x, y, image=imagen_bola)
 
 #frame de controles
 frame_controles = Frame(ventana_principal)
@@ -67,7 +82,7 @@ frame_controles.configure(bg="khaki", width=680, height=90)
 frame_controles.place(x=10, y = 500)
 
 #barra de deslizamiento
-boton_mover= Button(frame_controles, command=mover_objeto)
+boton_mover= Button(frame_controles, command=mover_bola)
 boton_mover.configure(bg = "orange",text="Mover", width=10, height=0)
 boton_mover.place(x=290,y=30)
 
