@@ -15,18 +15,28 @@ ALTURA=460
 
 def mover_objeto(x, y):
     reiniciar_circulos()
+    xd,yd = c.coords(objeto)
+    if xd < 0:
+        x += 660
+    elif xd > 660:
+        x -= 660
+    elif yd < 0:
+        y += 460
+    elif yd > 460:
+        y -= 460
     c.move(objeto, x, y)
 
 def reiniciar_circulos():
     c.delete("circulo") 
-    for i in range(600):
+    for i in range(200):
         x_estrella = random.randint(0, BASE - 20)
         y_estrella = random.randint(0, ALTURA - 20)
         color = "#"
         for caracter in range(6):   
             color = color + random.choice("0123456789ABCDF")
-            tamaño = random.randint(0,10)
+            tamaño = random.randint(0,20)
         c.create_oval(x_estrella,y_estrella, x_estrella+tamaño, y_estrella+tamaño, fill = color, tags="circulo")
+
 def mover_arriba(event=None):
     mover_objeto(0, -10)
     
