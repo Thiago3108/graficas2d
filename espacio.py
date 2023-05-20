@@ -74,7 +74,9 @@ c = Canvas(frame_graficacion, width=BASE, height=ALTURA)
 c.configure(bg="black")
 c.place(x=10, y=10)
 
+#asteroides
 reiniciar_circulos()
+
 #objeto o balon 
 image = PhotoImage(file="nave (1).png")
 objeto = c.create_image(100,200, image=image)
